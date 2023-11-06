@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Caixa Eletrônico</title>
+    <link rel="stylesheet" href="./stylesmenu.css" />
+
+    <script>
+      var saldo = 100.5; //Variavel Global
+      var senha_correta = 3589;
+      var nome = prompt("Digite seu nome:");
+      function inicio() {
+        //ESCOPO
+        //Variavel Local
+        alert("Olá " + nome + ", é um prazer ter você por aqui!");
+        var escolha = parseInt(
+          prompt(
+            "1 - Saldo\n2 - Extrato\n3 - Saque\n4 - Depósito\n5 - Transferência\n6 - Sair"
+          )
+        );
+
+        switch (escolha) {
+          case 1:
+            ver_saldo();
+            break;
+          case 2:
+            ver_extrato();
+            break;
+          case 3:
+            realizar_saque();
+            break;
+          case 4:
+            fazer_deposito();
+            break;
+          case 5:
+            realizar_transferência();
+            break;
+          case 6:
+            Sair();
+            return;
+          default:
+            alert("Opção inválida. Tente novamente.");
+            break;
+        }
+      }
+
+      function ver_saldo() {
+        var senha = parseInt(prompt("Informe sua senha por favor:"));
+        if (isNaN(senha) || senha === " " || senha !== senha_correta) {
+          alert(" Senha incorreta.");
+          ver_saldo();
+        } else {
+          alert("	Seu saldo é de R$" + " " + saldo);
+          inicio();
+        }
+      }
+
+      function fazer_deposito() {
+        var deposito = parseFloat(prompt("Qual o valor para depósito?"));
+
+        // Not a Number --> Isso é um não-número?
+        if (isNaN(deposito) || deposito === "") {
+          alert("Por favor, informe um número.");
+          fazer_deposito();
+        } else {
+          saldo += deposito;
+          //saldo = saldo + deposito;
+          ver_saldo();
+        }
+      }
+
+      function realizar_saque() {
+        var saque = parseFloat(prompt("Qual o valor para o saque?"));
+
+        if (isNaN(saque) || saque === "") {
+          alert("Por favor, informe um número.");
+          realizar_saque();
+        } else if (saque > saldo || saque <= 0) {
+          alert("Operação não autorizada");
+          inicio();
+        } else {
+          saldo -= saque;
+          //saldo = saldo - saque;
+          ver_saldo();
+        }
+      }
+
+      function realizar_transferência() {
+        var transferencia = parseFloat(
+          prompt("Digite o valor que deseja transferir: ")
+        );
+        if (transferencia <= 0 || transferencia > saldo) {
+          alert("Operação não autorizada.");
+        } else {
+          saldo -= transferencia;
+          //saldo = saldo - saque;
+          ver_saldo();
+        }
+      }
+
+      function ver_extrato() {
+        var saldo = 100.5;
+        var historico =
+          "\n Data: 16/05/2023 - Lojas YouCom R$ 256,80  -\n Data: 09/08/2023 - Casa do Pastel tuiuti R$ 122,30 -\n Data: 29/10/2023 - IngresFest Halloween 2k R$ 300,00 -\n Data: 04/11/2023 - Cena Festival R$ 368,98";
+        alert("Extrato " + historico);
+        inicio();
+      }
+
+      function Sair() {
+        alert(nome + ", foi um prazer ter você por aqui!");
+      }
+
+      inicio();
+    </script>
+  </head>
+
+  <body></body>
+</html>
